@@ -32,11 +32,11 @@ const poolConfig = {
 };
 
 const database = {
-  username: process.env.DB_USERNAME,
-  password: process.env.DB_PASSWORD, // if blank then set null
-  database: process.env.DB_NAME,
-  host: process.env.DB_HOST,
-  pool: process.env.enableConnectionPool ? poolConfig : null,
+  username: process.env.DB_USERNAME ? process.env.DB_USERNAME : 'postgres',
+  password: process.env.DB_PASSWORD ? process.env.DB_PASSWORD : '1234', // if blank then set null
+  database: process.env.DB_NAME ? process.env.DB_NAME : 'beemassistant',
+  host: process.env.DB_HOST ? process.env.DB_HOST : 'localhost',
+  pool: poolConfig,
   dialect: 'postgres',
   logging: process.env.NODE_ENV === Environment.Development,
   port: process.env.DB_PORT ? parseInt(process.env.DB_PORT) : 5432,
