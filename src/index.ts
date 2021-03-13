@@ -1,9 +1,9 @@
-import express from 'express';
+import * as bodyParser from 'body-parser';
+import App from './app';
 
-const app = express();
-const PORT = 8000;
-app.get('/', (req, res) => res.send('Express + TypeScript Server'));
-
-app.listen(PORT, () => {
-  console.log(`⚡️[server]: Server is running at https://localhost:${PORT}`);
+const app = new App({
+    port: 4000,
+    middleWares: [bodyParser.json(), bodyParser.urlencoded({ extended: true, limit: '5m' })],
 });
+
+app.listen();
