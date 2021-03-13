@@ -1,7 +1,6 @@
 import config from './env';
 
 const createSequelizeConfigForEnv = (environment: string | undefined) => {
-  /* eslint-disable global-require */
   switch (environment) {
     case 'production': {
       return {
@@ -20,7 +19,4 @@ const createSequelizeConfigForEnv = (environment: string | undefined) => {
     }
   }
 };
-
-// Needs to be `module.exports` as required by Sequelize CLI
-// http://docs.sequelizejs.com/manual/migrations.html#configuration
 module.exports = createSequelizeConfigForEnv(process.env.NODE_ENV);
