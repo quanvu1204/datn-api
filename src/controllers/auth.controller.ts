@@ -13,6 +13,8 @@ class AuthController extends AuthRepository {
         if (customerData && customerData.isActive) {
             const token = generateToken(customerData);
             return responseSuccess(res, { token });
+        } else if (customerData && !customerData.isActive) {
+            return responseSuccess(res, null, 200, 'NOT_ACTIVATED');
         }
         return responseError(res);
     };

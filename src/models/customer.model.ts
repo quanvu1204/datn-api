@@ -30,6 +30,9 @@ const Customer = <CustomerStatic>Sequelize.define('Customer', {
         type: DataTypes.ENUM('male', 'female'),
         defaultValue: 'male',
     },
+    avatar: {
+        type: DataTypes.TEXT,
+    },
     otpSecret: {
         type: DataTypes.STRING(32),
     },

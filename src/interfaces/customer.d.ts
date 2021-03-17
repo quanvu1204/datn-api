@@ -7,6 +7,7 @@ export interface CustomerAttributes {
     firstName: string;
     lastName: string;
     sex: string;
+    avatar: string;
     deleted: boolean;
     otpSecret: string;
     isActive: boolean;

@@ -32,6 +32,9 @@ module.exports = {
                 type: Sequelize.ENUM('male', 'female'),
                 defaultValue: 'male',
             },
+            avatar: {
+                type: Sequelize.TEXT,
+            },
             otpSecret: {
                 type: Sequelize.STRING(32),
             },
