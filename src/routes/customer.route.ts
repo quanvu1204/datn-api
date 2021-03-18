@@ -1,5 +1,4 @@
 import express from 'express';
-import AuthController from '../controllers/auth.controller';
 import CustomerController from '../controllers/customer.controller';
 import customerModel from '../models/customer.model';
 
@@ -12,5 +11,6 @@ const customerController = new CustomerController(customerModel);
 
 router.get('/detail', customerController.getDetail);
 router.post('/update', customerController.updateCustomer);
+router.post('/reset-password', customerController.resetPassword);
 
 export default router;

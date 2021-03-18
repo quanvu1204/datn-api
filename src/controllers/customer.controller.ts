@@ -19,6 +19,14 @@ class CustomerController extends CustomerRepository {
         }
         return responseError(res, 0);
     };
+
+    public resetPassword = async (req: Request, res: Response) => {
+        const customerData = await this.customerResetPassword(req.body, req.user['id']);
+        if (customerData) {
+            return responseSuccess(res, customerData);
+        }
+        return responseError(res);
+    };
 }
 
 export default CustomerController;

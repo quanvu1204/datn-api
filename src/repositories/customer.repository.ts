@@ -1,4 +1,5 @@
 import { CustomerAttributes, CustomerStatic } from '../interfaces/customer';
+import bcrypt from '../libraries/bcrypt';
 
 export default class CustomerService {
     private customer: CustomerStatic;
@@ -18,14 +19,21 @@ export default class CustomerService {
         return customer;
     }
 
-    /**
-     * CUSTOMER
-     */
-
     protected async updateCustomerDetail(data: any, id: string): Promise<number> {
         const response = await this.customer.update(data, {
             where: { id },
         });
+        return response[0];
+    }
+
+    protected async customerResetPassword(data: { password: string }, id: string): Promise<number> {
+        const password = bcrypt.generateHashPassword(data.password);
+        const response = await this.customer.update(
+            { password },
+            {
+                where: { id },
+            }
+        );
         return response[0];
     }
 }
