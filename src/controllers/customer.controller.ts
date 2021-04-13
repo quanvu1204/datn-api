@@ -5,7 +5,6 @@ import CustomerRepository from '../repositories/customer.repository';
 
 class CustomerController extends CustomerRepository {
     public getDetail = async (req: Request, res: Response) => {
-        console.log(req.user);
         const customerData = await this.getCustomerDetail(req.user['id']);
         if (customerData) {
             return responseSuccess(res, customerData);

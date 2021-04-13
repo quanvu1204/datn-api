@@ -6,7 +6,6 @@ import Sequelize from '../libraries/sequelize';
 const Customer = <CustomerStatic>Sequelize.define('Customer', {
     id: {
         type: DataTypes.UUIDV4,
-        autoIncrement: true,
         primaryKey: true,
     },
     firstName: {
