@@ -10,6 +10,6 @@ const messageController = new MessageController(messageModel);
  */
 
 router.get('/get-all', messageController.getAll);
-router.get('/create', messageController.create);
+router.post('/create', messageController.create);
 
 export default router;

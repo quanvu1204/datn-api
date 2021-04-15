@@ -23,7 +23,6 @@ module.exports = {
             },
             message: {
                 type: Sequelize.TEXT,
-                unique: true,
             },
             deleted: {
                 type: Sequelize.BOOLEAN,
