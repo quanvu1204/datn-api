@@ -5,10 +5,7 @@ import deviceModel from '../models/device.model';
 const router = express.Router();
 const deviceController = new DeviceController(deviceModel);
 
-/**
- * CUSTOMER
- */
-
+router.get('/get-all', deviceController.findAll);
 router.put('/update', deviceController.update);
 router.delete('/delete/:ip', deviceController.delete);
 

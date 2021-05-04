@@ -1,4 +1,4 @@
-import { DeviceAttributes, DeviceStatic } from '../interfaces/device';
+import { DeviceAttributes, DeviceModel, DeviceStatic } from '../interfaces/device';
 import customerDeviceModel from '../models/customer-device.model';
 import { CustomerDeviceAttributes } from '../interfaces/customer-device';
 import { v4 as uuidv4 } from 'uuid';
@@ -8,6 +8,18 @@ export default class DeviceService {
 
     constructor(device: DeviceStatic) {
         this.device = device;
+    }
+
+    protected async findAllDevice(): Promise<{
+        rows: DeviceModel[];
+        count: number;
+    }> {
+        try {
+            const device = await this.device.findAndCountAll();
+            return device;
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     protected async addCustomerDevice(params: DeviceAttributes, id: string): Promise<CustomerDeviceAttributes> {
