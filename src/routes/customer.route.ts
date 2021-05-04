@@ -1,9 +1,12 @@
 import express from 'express';
 import CustomerController from '../controllers/customer.controller';
+import DeviceController from '../controllers/device.controller';
 import customerModel from '../models/customer.model';
+import deviceModel from '../models/device.model';
 
 const router = express.Router();
 const customerController = new CustomerController(customerModel);
+const deviceController = new DeviceController(deviceModel);
 
 /**
  * CUSTOMER
@@ -12,5 +15,6 @@ const customerController = new CustomerController(customerModel);
 router.get('/detail', customerController.getDetail);
 router.post('/update', customerController.updateCustomer);
 router.post('/reset-password', customerController.resetPassword);
+router.post('/add-device', deviceController.createDevice);
 
 export default router;
