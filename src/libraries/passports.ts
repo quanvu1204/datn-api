@@ -4,6 +4,8 @@ import { PassportStatic } from 'passport';
 import env from '../../config/env';
 import { CustomerAttributes } from '../interfaces/customer';
 import customerModel from '../models/customer.model';
+import { AdminAttributes } from '../interfaces/admin';
+import adminModel from '../models/admin.model';
 
 const { ExtractJwt } = passportJWT;
 const JwtStrategy = passportJWT.Strategy;
@@ -18,15 +20,13 @@ export function passportConfiguration(passport: PassportStatic) {
         new JwtStrategy(opts, async (jwtPayload, cb) => {
             let user;
             if (jwtPayload.isAdmin) {
-                // TO DO
+                user = await adminModel.findOne({
+                    where: { id: jwtPayload.id, deleted: false },
+                });
                 user.isAdmin = true;
             } else {
                 user = await customerModel.findOne({
-                    where: {
-                        id: jwtPayload.id,
-                        isActive: true,
-                        deleted: false,
-                    },
+                    where: { id: jwtPayload.id, isActive: true, deleted: false },
                 });
             }
 
@@ -39,15 +39,8 @@ export function passportConfiguration(passport: PassportStatic) {
     );
 }
 
-export function generateToken(
-    customer: CustomerAttributes,
-    isAdmin: boolean = false
-) {
-    return jwt.sign(
-        { id: customer.id, email: customer.email, isAdmin },
-        env.jwtSecret,
-        {
-            expiresIn: env.jwtExpiresIn,
-        }
-    );
+export function generateToken(customer: CustomerAttributes | AdminAttributes, isAdmin: boolean = false) {
+    return jwt.sign({ id: customer.id, email: customer.email, isAdmin }, env.jwtSecret, {
+        expiresIn: env.jwtExpiresIn,
+    });
 }

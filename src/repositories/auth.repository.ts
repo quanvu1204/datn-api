@@ -6,6 +6,8 @@ import bcrypt from '../libraries/bcrypt';
 
 import { CustomerAttributes, CustomerModel, CustomerStatic } from '../interfaces/customer';
 import constants from '../commons/constants';
+import adminModel from '../models/admin.model';
+import { AdminAttributes } from '../interfaces/admin';
 
 export default class AuthService {
     private customer: CustomerStatic;
@@ -64,5 +66,23 @@ export default class AuthService {
         };
 
         mail.requestSendMail(mailOptions);
+    }
+
+    protected async findAdminByEmail(email: string): Promise<any> {
+        const admin = await adminModel.findOne({
+            where: {
+                email,
+                deleted: false,
+            },
+        });
+        return admin;
+    }
+
+    protected async checkAdminAuthenticationData(email: string, password: string): Promise<AdminAttributes | undefined> {
+        const admin = await this.findAdminByEmail(email);
+        if (!admin || (!!admin && password && !bcrypt.comparePassword(password, admin.password))) {
+            return undefined;
+        }
+        return admin;
     }
 }

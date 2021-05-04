@@ -16,4 +16,10 @@ router.post('/send-verify-code', authController.sendVerificationCode);
 router.post('/verify-resetPassword-code', authController.verifyCodeToResetPassword);
 router.post('/customer-reset-password', authController.customerResetPassword);
 
+/**
+ * ADMIN
+ */
+
+router.post('/admin-login', authController.adminLogin);
+
 export default router;

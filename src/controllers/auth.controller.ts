@@ -83,6 +83,17 @@ class AuthController extends AuthRepository {
         }
         return responseError(res);
     };
+
+    public adminLogin = async (req: Request, res: Response) => {
+        const { email, password } = req.body;
+        const adminData = await this.checkAdminAuthenticationData(email, password);
+        if (adminData) {
+            const token = generateToken(adminData, true);
+            return responseSuccess(res, { token });
+        } else {
+            return responseError(res);
+        }
+    };
 }
 
 export default AuthController;
