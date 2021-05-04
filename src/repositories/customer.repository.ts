@@ -26,14 +26,19 @@ export default class CustomerService {
         return response[0];
     }
 
-    protected async customerResetPassword(data: { password: string }, id: string): Promise<number> {
+    protected async customerResetPassword(data: { oldPassword: string; password: string }, id: string): Promise<any> {
+        const customerData = await this.customer.findOne({ where: { id } });
         const password = bcrypt.generateHashPassword(data.password);
-        const response = await this.customer.update(
-            { password },
-            {
-                where: { id },
-            }
-        );
-        return response[0];
+        if (bcrypt.comparePassword(data.oldPassword, customerData.password)) {
+            const response = await this.customer.update(
+                { password },
+                {
+                    where: { id },
+                }
+            );
+            return response[0];
+        } else {
+            return 'Mật khẩu cũ không chính xác!';
+        }
     }
 }
