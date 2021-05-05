@@ -1,5 +1,8 @@
 import { CustomerAttributes, CustomerStatic } from '../interfaces/customer';
+import { CustomerDeviceModel } from '../interfaces/customer-device';
 import bcrypt from '../libraries/bcrypt';
+import customerDeviceModel from '../models/customer-device.model';
+import deviceModel from '../models/device.model';
 
 export default class CustomerService {
     private customer: CustomerStatic;
@@ -17,6 +20,11 @@ export default class CustomerService {
             where: { id },
         });
         return customer;
+    }
+
+    protected async findAllDevice(id: string): Promise<{ rows: CustomerDeviceModel[]; count: number }> {
+        const customerDevices = await customerDeviceModel.findAndCountAll({ where: { customerId: id }, include: [{ model: deviceModel, as: 'device' }] });
+        return customerDevices;
     }
 
     protected async updateCustomerDetail(data: any, id: string): Promise<number> {

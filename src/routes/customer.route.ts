@@ -13,6 +13,7 @@ const deviceController = new DeviceController(deviceModel);
  */
 
 router.get('/detail', customerController.getDetail);
+router.get('/list-device', customerController.getListDevice);
 router.post('/update', customerController.updateCustomer);
 router.post('/reset-password', customerController.resetPassword);
 router.post('/add-device', deviceController.createDevice);

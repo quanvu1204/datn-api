@@ -6,7 +6,17 @@ import bcrypt from '../libraries/bcrypt';
 
 class CustomerController extends CustomerRepository {
     public getDetail = async (req: Request, res: Response) => {
+        if (!req.user) {
+            return responseError(res, null, 400);
+        }
         const customerData = await this.getCustomerDetail(req.user['id']);
+        if (customerData) {
+            return responseSuccess(res, customerData);
+        }
+        return responseError(res);
+    };
+    public getListDevice = async (req: Request, res: Response) => {
+        const customerData = await this.findAllDevice(req.user['id']);
         if (customerData) {
             return responseSuccess(res, customerData);
         }
