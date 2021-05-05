@@ -18,4 +18,16 @@ export default class CustomerService {
         });
         return customer;
     }
+
+    protected async deleteCustomerById(customerId: string): Promise<number> {
+        await customerDeviceModel.destroy({ where: { customerId } });
+        const customer = await customerModel.destroy({ where: { id: customerId } });
+        return customer;
+    }
+
+    protected async deleteDeviceById(deviceId: string): Promise<number> {
+        await customerDeviceModel.destroy({ where: { deviceId } });
+        const device = await deviceModel.destroy({ where: { id: deviceId } });
+        return device;
+    }
 }

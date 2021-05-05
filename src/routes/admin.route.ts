@@ -10,5 +10,7 @@ const adminController = new AdminController(adminModel);
  */
 
 router.get('/list-customer', adminController.getListCustomer);
+router.delete('/delete-customer/:id', adminController.deleteCustomer);
+router.delete('/delete-device/:id', adminController.deleteDevice);
 
 export default router;
