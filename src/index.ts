@@ -1,9 +1,9 @@
-import * as bodyParser from 'body-parser';
+import express from 'express';
 import App from './app';
 
 const app = new App({
     port: 4000,
-    middleWares: [bodyParser.json(), bodyParser.urlencoded({ extended: true, limit: '5m' })],
+    middleWares: [express.json({ limit: '50mb' }), express.urlencoded({ limit: '50mb', extended: true })],
 });
 
 app.listen();

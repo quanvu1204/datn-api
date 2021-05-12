@@ -4,6 +4,7 @@ import customerRoutes from './customer.route';
 import messageRoutes from './message.route';
 import adminRoutes from './admin.route';
 import deviceRoutes from './device.route';
+import commonRoutes from './common.route';
 
 import authentication from '../middlewares/authentication';
 import adminAuthentication from '../middlewares/authenticationAdmin';
@@ -19,6 +20,7 @@ router.use('/auth', authRoutes);
 router.use('/customer', [authentication], customerRoutes);
 router.use('/message', [authentication], messageRoutes);
 router.use('/device', deviceRoutes);
+router.use('/common', commonRoutes);
 // admin
 router.use('/admin', [adminAuthentication], adminRoutes);
 
