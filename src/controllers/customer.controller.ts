@@ -15,6 +15,7 @@ class CustomerController extends CustomerRepository {
         }
         return responseError(res);
     };
+
     public getListDevice = async (req: Request, res: Response) => {
         const customerData = await this.findAllDevice(req.user['id']);
         if (customerData) {
@@ -22,6 +23,7 @@ class CustomerController extends CustomerRepository {
         }
         return responseError(res);
     };
+
     public updateCustomer = async (req: Request, res: Response) => {
         const customerData = await this.updateCustomerDetail(req.body, req.user['id']);
         if (customerData) {

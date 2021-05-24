@@ -8,6 +8,14 @@ class AdminController extends AdminRepository {
         return responseSuccess(res, customers);
     };
 
+    public updateCustomer = async (req: Request, res: Response) => {
+        const customerData = await this.updateCustomerDetail(req.body);
+        if (customerData) {
+            return responseSuccess(res, customerData);
+        }
+        return responseError(res, 0);
+    };
+
     public deleteCustomer = async (req: Request, res: Response) => {
         const customer = await this.deleteCustomerById(req.params.id);
         if (customer) {

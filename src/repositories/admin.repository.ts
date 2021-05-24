@@ -30,4 +30,11 @@ export default class CustomerService {
         const device = await deviceModel.destroy({ where: { id: deviceId } });
         return device;
     }
+
+    protected async updateCustomerDetail(data: CustomerModel): Promise<number> {
+        const response = await customerModel.update(data, {
+            where: { id: data.id },
+        });
+        return response[0];
+    }
 }
