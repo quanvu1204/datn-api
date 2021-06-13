@@ -32,6 +32,14 @@ class CustomerController extends CustomerRepository {
         return responseError(res, 0);
     };
 
+    public deleteCustomer = async (req: Request, res: Response) => {
+        const customer = await this.delete(req.user['id']);
+        if (customer) {
+            return responseSuccess(res);
+        }
+        return responseError(res);
+    };
+
     public resetPassword = async (req: Request, res: Response) => {
         const customerData = await this.getCustomerDetail(req.user['id']);
         if (customerData) {

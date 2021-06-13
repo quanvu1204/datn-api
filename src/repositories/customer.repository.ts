@@ -49,4 +49,10 @@ export default class CustomerService {
             return 'Mật khẩu cũ không chính xác!';
         }
     }
+
+    protected async delete(id: string): Promise<number> {
+        await customerDeviceModel.destroy({ where: { id } });
+        const customer = await this.customer.destroy({ where: { id } });
+        return customer;
+    }
 }
