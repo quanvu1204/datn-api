@@ -24,8 +24,14 @@ export default class DeviceService {
 
     protected async addCustomerDevice(params: DeviceAttributes, id: string): Promise<CustomerDeviceAttributes> {
         try {
-            const device = await this.device.create({ ...params });
-            const customerDevice = await customerDeviceModel.create({ id: uuidv4(), customerId: id, deviceId: device.id, deleted: false });
+            let customerDevice;
+            const findDevice = await this.device.findOne({ where: { ip: params.ip } });
+            if (findDevice) {
+                customerDevice = await customerDeviceModel.create({ id: uuidv4(), customerId: id, deviceId: findDevice.id, deleted: false });
+            } else {
+                const device = await this.device.create({ ...params });
+                customerDevice = await customerDeviceModel.create({ id: uuidv4(), customerId: id, deviceId: device.id, deleted: false });
+            }
             return customerDevice;
         } catch (error) {
             console.log(error);
