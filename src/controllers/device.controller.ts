@@ -13,6 +13,11 @@ class DeviceController extends DeviceRepository {
         return responseSuccess(res, devices);
     };
 
+    public findById = async (req: Request, res: Response) => {
+        const devices = await this.findAllById(req.params['id']);
+        return responseSuccess(res, devices);
+    };
+
     public update = async (req: Request, res: Response) => {
         const response = await this.updateStatus(req.body);
         if (response) {

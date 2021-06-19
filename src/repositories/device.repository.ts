@@ -1,6 +1,6 @@
 import { DeviceAttributes, DeviceModel, DeviceStatic } from '../interfaces/device';
 import customerDeviceModel from '../models/customer-device.model';
-import { CustomerDeviceAttributes } from '../interfaces/customer-device';
+import { CustomerDeviceAttributes, CustomerDeviceModel } from '../interfaces/customer-device';
 import { v4 as uuidv4 } from 'uuid';
 
 export default class DeviceService {
@@ -16,6 +16,20 @@ export default class DeviceService {
     }> {
         try {
             const device = await this.device.findAndCountAll();
+            return device;
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    protected async findAllById(
+        id: string
+    ): Promise<{
+        rows: CustomerDeviceModel[];
+        count: number;
+    }> {
+        try {
+            const device = await customerDeviceModel.findAndCountAll({ where: { customerId: id }, include: { model: this.device, as: 'device' } });
             return device;
         } catch (error) {
             console.log(error);
