@@ -33,6 +33,14 @@ class DeviceController extends DeviceRepository {
         }
         return responseError(res);
     };
+
+    public share = async (req: Request, res: Response) => {
+        const response = await this.shareDevice(req.body);
+        if (response) {
+            return responseSuccess(res);
+        }
+        return responseError(res);
+    };
 }
 
 export default DeviceController;

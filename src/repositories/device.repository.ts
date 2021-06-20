@@ -1,6 +1,7 @@
 import { DeviceAttributes, DeviceModel, DeviceStatic } from '../interfaces/device';
 import customerDeviceModel from '../models/customer-device.model';
-import { CustomerDeviceAttributes, CustomerDeviceModel } from '../interfaces/customer-device';
+import customerModel from '../models/customer.model';
+import { CustomerDevice, CustomerDeviceAttributes, CustomerDeviceModel } from '../interfaces/customer-device';
 import { v4 as uuidv4 } from 'uuid';
 
 export default class DeviceService {
@@ -67,6 +68,18 @@ export default class DeviceService {
             await customerDeviceModel.destroy({ where: { deviceId: device.id } });
             const res = await this.device.destroy({ where: { ip } });
             return res;
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    protected async shareDevice(params: { emailShared: string; deviceId: string }): Promise<CustomerDeviceAttributes> {
+        try {
+            const findCustomer = await customerModel.findOne({ where: { email: params.emailShared } });
+            if (findCustomer) {
+                const customerDevice = await customerDeviceModel.create({ id: uuidv4(), customerId: findCustomer.id, deviceId: params.deviceId, deleted: false });
+                return customerDevice;
+            } else return undefined;
         } catch (error) {
             console.log(error);
         }

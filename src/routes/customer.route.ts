@@ -18,5 +18,6 @@ router.post('/update', customerController.updateCustomer);
 router.post('/reset-password', customerController.resetPassword);
 router.post('/add-device', deviceController.createDevice);
 router.delete('/delete', customerController.deleteCustomer);
+router.post('/share', deviceController.share);
 
 export default router;
