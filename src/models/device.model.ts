@@ -18,6 +18,9 @@ const Device = <DeviceStatic>Sequelize.define('Device', {
         type: DataTypes.ENUM('off', 'on'),
         defaultValue: 'off',
     },
+    timer: {
+        type: DataTypes.JSON,
+    },
     deleted: {
         type: DataTypes.BOOLEAN,
         defaultValue: false,

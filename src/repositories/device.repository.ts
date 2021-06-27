@@ -55,7 +55,7 @@ export default class DeviceService {
 
     protected async updateStatus(params: DeviceAttributes): Promise<number> {
         try {
-            const device = await this.device.update({ status: params.status }, { where: { ip: params.ip } });
+            const device = await this.device.update({ status: params.status, timer: params.timer }, { where: { ip: params.ip } });
             return device[0];
         } catch (error) {
             console.log(error);

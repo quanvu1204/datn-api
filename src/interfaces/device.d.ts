@@ -5,6 +5,7 @@ export interface DeviceAttributes {
     name: string;
     ip: string;
     status: string;
+    timer: { status: string; time: string };
     deleted: boolean;
     createdAt?: Date;
     updatedAt?: Date;

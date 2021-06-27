@@ -22,6 +22,9 @@ module.exports = {
                 type: Sequelize.ENUM('off', 'on'),
                 defaultValue: 'off',
             },
+            timer: {
+                type: Sequelize.JSON,
+            },
             deleted: {
                 type: Sequelize.BOOLEAN,
                 defaultValue: false,
